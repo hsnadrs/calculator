@@ -8,15 +8,16 @@ import { evaluate, round } from 'mathjs';
 // general variables accessed by all functions
 let typed=""; // to store or input string numbers and operation +/*-
 let result = ""; // display resule of evaluate libray from mathjs
-
+let ans=0;
 function App() {
   //let calcMap = [0,1,2,3,4,5,6,7,8,9,"+" , "-", "=" ,"/","*", "c"]; //displayed buttons
   let calcMap = [
-    "c", "+-", "%", "/",
+    "c", "sqrt", "%", "/",
   7, 8, 9, "*",
   4, 5, 6, "-",
   1, 2, 3, "+",
-  0, ".", "=",
+   ".", 0,"(",")",
+  "x", "^", "ans","=",
   ];
   const [calcDisplay, setCalcDisplay] = React.useState ("");// update Display or showing every click
 // function called on every click
@@ -32,6 +33,8 @@ if ( calcMap[index] == "=") {
   result.replace("x", "*");
   // evalute easily any string of math meaning MathJS must be installed
   result = evaluate (result);
+  //store in answ button
+  ans= result;
   //reset the typed string to nothing
 typed = "";
 //update the screen with result
@@ -45,9 +48,12 @@ if ( calcMap[index] == 'c') {
   //update the screen with cleared 
   setCalcDisplay(typed);
 }
-if (calcMap[index] != '=' && calcMap[index] != 'c'){
+if (calcMap[index] != '=' && calcMap[index] != 'c' && calcMap[index] != 'ans'){
 typed += calcMap[index];
 setCalcDisplay(typed);
+}
+if ( calcMap[index] == 'ans') {
+  setCalcDisplay(ans);// print variable answer stored
 }
   }
   return (
